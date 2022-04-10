@@ -98,9 +98,9 @@ public class PlayerInformation implements Comparable<PlayerInformation> {
     @Override
     public int compareTo(PlayerInformation other) {
         if(this.playerName.equals(other.playerName) && this.dateOfBirth.equals(other.dateOfBirth)) {
-            return 1;
-        } else {
             return 0;
+        } else {
+            return -1;
         }
     }
 }

@@ -3,6 +3,7 @@ package main.basketball.cpsc233w22basketball;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -115,10 +116,54 @@ public class MainController {
 //
 //        BasketballPlayer l = new BasketballPlayer(new PlayerInformation("Mark Mattews", 2, 2, 2, "Lebron", new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1990"), "Center"), new PlayerStats(2,2,2,2,2,2,2,2,2,2));
 //        playersArray.add(l);
+        //allPlayers.getItems().clear();
+        players.clear();
         for(BasketballPlayer player : playersArray){
             players.add(player.getPlayerInformation().getPlayerName().toUpperCase());
         }
         allPlayers.getItems().addAll(players);
+    }
+
+    /**
+     * Loads all players when the GUI is initialized.
+     */
+    private void loadUniquePlayers() {
+        uniquePlayers.clear();
+        for(BasketballPlayer player : playersArray){
+            uniquePlayers.add(player.getPlayerInformation().getPlayerName().toUpperCase());
+        }
+
+        ChoiceBox<String> playersToView = new ChoiceBox<>(FXCollections.observableArrayList(uniquePlayers));
+        playersToView.setLayoutX(106);
+        playersToView.setLayoutY(120);
+        playersToView.prefWidth(150);
+        playersToView.setOnAction(event -> {
+            for (BasketballPlayer player : playersArray){
+                if (player.getPlayerInformation().getPlayerName().equalsIgnoreCase(playersToView.getValue())){
+                    PlayerStats playerStats = player.getPlayerStats();
+                    displayTextArea.setText(String.format("""
+                        Player Name - %s
+                        Shot Attempts - %d
+                        Shot Makes - %d
+                        3-Point Shot Attempts - %d
+                        3-Point Shot Makes - %d
+                        Free Throw Attempts - %d
+                        Free Throw Makes - %d
+                        Assists - %d
+                        Rebounds - %d
+                        Blocks - %d
+                        Steals - %d""", player.getPlayerInformation().getPlayerName().toUpperCase(), playerStats.getShotAttempts(), playerStats.getShotMakes(), playerStats.getThreePointShotAttempts(),
+                            playerStats.getThreePointShotMakes(), playerStats.getFreeThrowAttempts(), playerStats.getFreeThrowMakes(), playerStats.getAssists(), playerStats.getRebounds(), playerStats.getBlocks(), playerStats.getSteals()));
+                }
+            }
+        });
+        displayID.getChildren().add(playersToView);
+
+
+        Label label = new Label("Select Player");
+        label.setLayoutX(14);
+        label.setLayoutY(123);
+        displayID.getChildren().add(label);
     }
 
     /**
@@ -128,9 +173,9 @@ public class MainController {
         if (playersArray.size() > 0) {
             for (BasketballPlayer basketballPlayer : playersArray) {
                 if (basketballPlayer.getPlayerInformation().getTeam().equalsIgnoreCase("LEBRON")) {
-                    teamLebronTextArea.appendText(basketballPlayer.getPlayerInformation().getPlayerName().toUpperCase());
+                    teamLebronTextArea.appendText(basketballPlayer.getPlayerInformation().getPlayerName().toUpperCase() + "\n");
                 } else {
-                    teamDurantTextArea.appendText(basketballPlayer.getPlayerInformation().getPlayerName().toUpperCase());
+                    teamDurantTextArea.appendText(basketballPlayer.getPlayerInformation().getPlayerName().toUpperCase() + "\n");
                 }
             }
         }
@@ -205,6 +250,11 @@ public class MainController {
         BasketballPlayer playerToOutput = playersArray.get(0);
         try {
             newStat = Integer.parseInt(editedStat.getText().strip());
+            if (newStat <= 0){
+                statusBar.setTextFill(Color.RED);
+                statusBar.setText("The stat value you entered must be more than 0!");
+                return;
+            }
         } catch (NumberFormatException e){
             statusBar.setTextFill(Color.RED);
             statusBar.setText("The stat being edited must only include integer values!");
@@ -273,6 +323,10 @@ public class MainController {
     @FXML
     void displayInfo(ActionEvent event) {
         String optionSelected = allDisplayOptions.getValue();
+        if (displayID.getChildren().size() == 6){
+            displayID.getChildren().remove(4);
+            displayID.getChildren().remove(4);
+        }
         if (optionSelected == null){
             statusBar.setTextFill(Color.RED);
             statusBar.setText("Please select a display option to output!");
@@ -300,14 +354,15 @@ public class MainController {
                         currentPlayerStats.getBlocks(), currentPlayerStats.getSteals()));
             }
         } else if (optionSelected.equals("Unique player stats")){
-            for(BasketballPlayer player : playersArray){
+          /**  for(BasketballPlayer player : playersArray){
                 uniquePlayers.add(player.getPlayerInformation().getPlayerName().toUpperCase());
             }
             ChoiceBox<String> playersToView = new ChoiceBox<>(FXCollections.observableArrayList(uniquePlayers));
             playersToView.setLayoutX(106);
             playersToView.setLayoutY(120);
             playersToView.prefWidth(150);
-            displayID.getChildren().add(playersToView);
+            displayID.getChildren().add(playersToView);*/
+          loadUniquePlayers();
         } else if (optionSelected.equals("Top 10 scorers")){
             ArrayList<BasketballPlayer> allPlayersStats = new ArrayList<>(playersArray);
 
@@ -539,9 +594,18 @@ public class MainController {
             } else{
                 teamDurantTextArea.appendText(firstName + " " + lastName);
             }
+            newPlayerFirstName.clear();
+            newPlayerLastName.clear();
+            newPlayerJeresyNo.clear();
+            newPlayerHeight.clear();
+            newPlayerWeight.clear();
+            newPlayerDateOfBirth.clear();
+            newPlayerTeamName.clear();
+            newPlayerPosition.clear();
+            //loadUniquePlayers();
+            loadPlayers();
             statusBar.setText(String.format("%s %s has been successfully added as a new All-Star Basketball Player!\n", firstName, lastName));
         }
-
     }
 
     /**
