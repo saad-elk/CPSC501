@@ -85,6 +85,9 @@ public class MainController {
     //Store players
     private ObservableList<String> players = FXCollections.observableArrayList();
 
+    //Store players
+    private ObservableList<String> uniquePlayers = FXCollections.observableArrayList();
+
     /**
      * Loads all stat options when the GUI is initialized.
      */
@@ -158,16 +161,6 @@ public class MainController {
         loadPlayers();
         loadTeamMembers();
         loadTextPrompts();
-        /**
-         * SET LOCATION FOR THE CHOICE BOX
-         *
-         *
-         *
-         * STILL NEED TO ENTER CODE FOR DISPLAYING UNIQUE PLAYER
-         */
-        String[] st = { "Arnab", "Andrew", "Ankit", "None" };
-        ChoiceBox<String> c = new ChoiceBox<>(FXCollections.observableArrayList(st));
-        displayID.getChildren().add(c);
     }
 
     public void displayStats(ActionEvent actionEvent) {
@@ -307,7 +300,14 @@ public class MainController {
                         currentPlayerStats.getBlocks(), currentPlayerStats.getSteals()));
             }
         } else if (optionSelected.equals("Unique player stats")){
-
+            for(BasketballPlayer player : playersArray){
+                uniquePlayers.add(player.getPlayerInformation().getPlayerName().toUpperCase());
+            }
+            ChoiceBox<String> playersToView = new ChoiceBox<>(FXCollections.observableArrayList(uniquePlayers));
+            playersToView.setLayoutX(106);
+            playersToView.setLayoutY(120);
+            playersToView.prefWidth(150);
+            displayID.getChildren().add(playersToView);
         } else if (optionSelected.equals("Top 10 scorers")){
             ArrayList<BasketballPlayer> allPlayersStats = new ArrayList<>(playersArray);
 
