@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.basketball.cpsc233w22basketball.MainController">
+<children>
+    <MenuBar>
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Save" />
+                    <MenuItem mnemonicParsing="false" text="Load" />
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <TabPane prefHeight="508.0" prefWidth="701.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Edit Player Stats">
+                <content>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                            <AnchorPane layoutX="-1.0" prefHeight="441.0" prefWidth="701.0">
+                                <children>
+                                    <ChoiceBox fx:id="allPlayers" layoutX="106.0" layoutY="58.0" onAction="#displayStats" prefWidth="150.0" />
+                                    <Label layoutX="23.0" layoutY="14.0" prefHeight="20.0" prefWidth="119.0" text="Edit Player">
+                                        <font>
+                                            <Font size="18.0" />
+                                        </font>
+                                    </Label>
+                                    <Label layoutX="38.0" layoutY="57.0" prefHeight="28.0" prefWidth="51.0" text="Player">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Label>
+                                    <Label layoutX="38.0" layoutY="104.0" text="Stat">
+                                        <font>
+                                            <Font size="16.0" />
+                                        </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="allStats" layoutX="106.0" layoutY="102.0" prefWidth="150.0" />
+                                    <TextField fx:id="editedStat" layoutX="75.0" layoutY="155.0" />
+                                    <Button layoutX="89.0" layoutY="195.0" mnemonicParsing="false" onMouseClicked="#confirmStatChange" text="Confirm Stat Change" />
+                                    <TextArea fx:id="editPlayerTextArea" editable="false" layoutX="360.0" layoutY="37.0" prefHeight="356.0" prefWidth="266.0" />
+                                </children>
+                            </AnchorPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Add New Player">
+                <content>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                            <AnchorPane prefHeight="441.0" prefWidth="701.0">
+                                <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Add New Player">
+                                        <font>
+                                            <Font size="18.0" />
+                                        </font>
+                                    </Label>
+                                    <Label layoutX="36.0" layoutY="58.0" text="First Name" />
+                                    <Label layoutX="38.0" layoutY="120.0" text="Jersey No" />
+                                    <Label layoutX="46.0" layoutY="152.0" text="Weight" />
+                                    <Label layoutX="47.0" layoutY="184.0" text="Height" />
+                                    <Label layoutX="36.0" layoutY="184.0" />
+                                    <Label layoutX="36.0" layoutY="222.0" text="Team Name" />
+                                    <Label layoutX="36.0" layoutY="89.0" text="Last Name" />
+                                    <Label layoutX="37.0" layoutY="254.0" text="Date of Birth" />
+                                    <Label layoutX="48.0" layoutY="291.0" text="Position" />
+                                    <TextField fx:id="newPlayerFirstName" layoutX="111.0" layoutY="54.0" />
+                                    <TextField fx:id="newPlayerLastName" layoutX="111.0" layoutY="85.0" />
+                                    <TextField fx:id="newPlayerJeresyNo" layoutX="111.0" layoutY="116.0" />
+                                    <TextField fx:id="newPlayerWeight" layoutX="111.0" layoutY="147.0" />
+                                    <TextField fx:id="newPlayerHeight" layoutX="111.0" layoutY="180.0" />
+                                    <TextField fx:id="newPlayerTeamName" layoutX="111.0" layoutY="217.0" />
+                                    <TextField fx:id="newPlayerDateOfBirth" layoutX="111.0" layoutY="249.0" />
+                                    <TextField fx:id="newPlayerPosition" layoutX="111.0" layoutY="286.0" />
+                                    <Button layoutX="105.0" layoutY="329.0" mnemonicParsing="false" onMouseClicked="#addPlayer" text="Add  Player" />
+                                    <TextArea fx:id="teamLebronTextArea" editable="false" layoutX="351.0" layoutY="39.0" prefHeight="356.0" prefWidth="151.0" />
+                                    <TextArea fx:id="teamDurantTextArea" editable="false" layoutX="511.0" layoutY="39.0" prefHeight="356.0" prefWidth="151.0" />
+                                    <Label layoutX="351.0" layoutY="17.0" text="Team Lebron" />
+                                    <Label layoutX="511.0" layoutY="17.0" text="Team Durant" />
+                                </children>
+                            </AnchorPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Display">
+                <content>
+                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                            <AnchorPane fx:id="displayID" prefHeight="443.0" prefWidth="701.0">
+                                <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Display">
+                                        <font>
+                                            <Font size="18.0" />
+                                        </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="allDisplayOptions" layoutX="106.0" layoutY="88.0" prefWidth="150.0" onAction="#displayInfo" />
+                                    <Label layoutX="14.0" layoutY="92.0" text="Display Options" />
+                                    <TextArea fx:id="displayTextArea" editable="false" layoutX="351.0" layoutY="37.0" prefHeight="356.0" prefWidth="321.0" />
+                                </children>
+                            </AnchorPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+    <Pane prefHeight="83.0" prefWidth="701.0" style="-fx-background-color: #9f9f9f;">
+        <children>
+            <Label fx:id="statusBar" layoutX="100.0" layoutY="3.0" prefHeight="19.0" prefWidth="500.0" text="                                  Welcome to our All-Star Basketball Player GUI">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </Pane>
+</children>
+</VBox>
