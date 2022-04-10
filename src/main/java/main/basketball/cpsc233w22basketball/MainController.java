@@ -163,12 +163,6 @@ public class MainController {
          *
          *
          *
-         *
-         *
-         *
-         *
-         *
-         *
          * STILL NEED TO ENTER CODE FOR DISPLAYING UNIQUE PLAYER
          */
         String[] st = { "Arnab", "Andrew", "Ankit", "None" };
