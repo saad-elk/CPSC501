@@ -1,23 +1,25 @@
 package main.basketball.cpsc233w22basketball;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class MainController {
     private static final int TO_PERCENTAGE = 100;
@@ -74,6 +76,60 @@ public class MainController {
 
     @FXML
     private TextArea teamLebronTextArea;
+
+    @FXML
+    private MenuItem about;
+
+    @FXML
+    private MenuItem quit;
+
+    @FXML
+    private MenuItem load;
+
+    @FXML
+    private MenuItem save;
+
+    @FXML
+    void displayAbout(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("Message");
+        alert.setContentText("""
+                Authors: Saad Elkadri & Vihari Vadlamudi
+                
+                Emails: 
+                saad.elkadri@ucalgary.ca
+                vihari.vadlamudi@ucalgary.ca
+                
+                Version: v1.0
+                This is a stat tracker for your favourite all star basketball players!.
+                """);
+        alert.show();
+    }
+
+    @FXML
+    void quitProgram(ActionEvent event) {
+        Platform.exit();
+        System.out.print("You have successfully quit All-Star Basketball Stat Tracker!");
+    }
+
+    @FXML
+    void loadPlayers(ActionEvent event) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("."));
+            File basketballFile = fileChooser.showOpenDialog(new Stage());
+            fileReader(basketballFile);
+            statusBar.setTextFill(Color.GREEN);
+            statusBar.setText("File successfully loaded!");
+        } catch (Exception e){
+            statusBar.setTextFill(Color.RED);
+            statusBar.setText("Invalid file chosen!");
+        }
+    }
+
+
+
 
     private ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
 
@@ -647,5 +703,86 @@ public class MainController {
             }
         }
         return bestPlayer;
+    }
+
+    /**
+     * FileReader reads in all Basketball Players from the file specified by the user
+     * @param basketballFile File for data be read from
+     * @return ArrayList of all the Basketball Players read from the file
+     * @throws ParseException Whenever the player's date of birth cannot be parsed.
+     */
+    public static ArrayList<BasketballPlayer> fileReader(File basketballFile) throws ParseException {
+        Scanner worldReader = null;
+        ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
+        try {
+            worldReader = new Scanner(basketballFile);
+            while (worldReader.hasNextLine()) {
+                String line = worldReader.nextLine();
+                String[] lineInfo = line.split(",");
+                String playerName = String.valueOf(lineInfo[0]);
+                int jerseyNo = Integer.parseInt(lineInfo[1]);
+                int height = Integer.parseInt(lineInfo[2]);
+                int weight = Integer.parseInt(lineInfo[3]);
+                String team = String.valueOf(lineInfo[4]);
+                Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(lineInfo[5]));
+                String position = String.valueOf(lineInfo[6]);
+                int shotAttempts = Integer.parseInt(lineInfo[7]);
+                int shotMakes = Integer.parseInt(lineInfo[8]);
+                int threePointShotAttempts = Integer.parseInt(lineInfo[9]);
+                int threePointShotMakes = Integer.parseInt(lineInfo[10]);
+                int freeThrowAttempts = Integer.parseInt(lineInfo[11]);
+                int freeThrowMakes = Integer.parseInt(lineInfo[12]);
+                int assists = Integer.parseInt(lineInfo[13]);
+                int blocks = Integer.parseInt(lineInfo[14]);
+                int steals = Integer.parseInt(lineInfo[15]);
+                int rebounds = Integer.parseInt(lineInfo[16]);
+
+                PlayerInformation playerInfo = new PlayerInformation(playerName, jerseyNo, height, weight, team, dateOfBirth, position);
+                PlayerStats playerStats = new PlayerStats(shotAttempts, shotMakes, threePointShotAttempts, threePointShotMakes, freeThrowAttempts, freeThrowMakes, assists, steals, blocks, rebounds);
+                BasketballPlayer basketballPlayer = new BasketballPlayer(playerInfo, playerStats);
+
+                playersArray.add(basketballPlayer);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Could not find file: " + basketballFile.getAbsolutePath());
+        }
+        return playersArray;
+    }
+
+    /**
+     * FileWriter writes all the current Basketball Players to the file specified by the user
+     * @param allPlayers ArrayList of all the Basketball Players
+     * @param file File for data be written to
+     */
+    public static void fileWriter(ArrayList<BasketballPlayer> allPlayers, File file) {
+        PrintWriter printWriter = null;
+        try {
+            printWriter = new PrintWriter(file);
+        } catch(FileNotFoundException e) {
+            System.err.println("Could not find file: " + file.getAbsolutePath());
+        }
+
+        for (int i = 0; i < allPlayers.size(); i++) {
+            PlayerInformation onePlayerInfo = allPlayers.get(i).getPlayerInformation();
+            PlayerStats onePlayerStats = allPlayers.get(i).getPlayerStats();
+            printWriter.write(onePlayerInfo.getPlayerName() + ",");
+            printWriter.write(onePlayerInfo.getJerseyNo() + ",");
+            printWriter.write(onePlayerInfo.getHeight() + ",");
+            printWriter.write(onePlayerInfo.getWeight() + ",");
+            printWriter.write(onePlayerInfo.getTeam() + ",");
+            printWriter.write(onePlayerInfo.getDateOfBirth().getDate() + "/" + (onePlayerInfo.getDateOfBirth().getMonth()+1) + "/" + (onePlayerInfo.getDateOfBirth().getYear()+1900) + ",");
+            printWriter.write(onePlayerInfo.getPosition() + ",");
+            printWriter.write(onePlayerStats.getShotAttempts() + ",");
+            printWriter.write(onePlayerStats.getShotMakes() + ",");
+            printWriter.write(onePlayerStats.getThreePointShotAttempts() + ",");
+            printWriter.write(onePlayerStats.getThreePointShotMakes() + ",");
+            printWriter.write(onePlayerStats.getFreeThrowAttempts() + ",");
+            printWriter.write(onePlayerStats.getFreeThrowMakes() + ",");
+            printWriter.write(onePlayerStats.getAssists() + ",");
+            printWriter.write(onePlayerStats.getBlocks() + ",");
+            printWriter.write(onePlayerStats.getSteals() + ",");
+            printWriter.write(onePlayerStats.getRebounds() + "\n");
+        }
+        printWriter.close();
     }
 }
