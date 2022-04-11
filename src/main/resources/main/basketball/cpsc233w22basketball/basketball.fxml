@@ -59,7 +59,7 @@
                                     </Label>
                                     <ChoiceBox fx:id="allStats" layoutX="106.0" layoutY="102.0" prefWidth="150.0" />
                                     <TextField fx:id="editedStat" layoutX="75.0" layoutY="155.0" />
-                                    <Button layoutX="89.0" layoutY="195.0" mnemonicParsing="false" onMouseClicked="#confirmStatChange" text="Confirm Stat Change" />
+                                    <Button layoutX="85.0" layoutY="195.0" mnemonicParsing="false" onMouseClicked="#confirmStatChange" text="Confirm Stat Change" />
                                     <TextArea fx:id="editPlayerTextArea" editable="false" layoutX="360.0" layoutY="37.0" prefHeight="356.0" prefWidth="266.0" />
                                 </children>
                             </AnchorPane>
