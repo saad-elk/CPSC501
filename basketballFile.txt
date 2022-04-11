@@ -1,0 +1,10 @@
+Saad Elkadri,7,180,81,Lebron,1/11/1988,PowerForward,10,9,8,7,10,9,8,7,10,9
+Mark Mathews,10,235,73,Durant,2/11/2011,SmallForward,21,17,14,10,8,5,35,53,23,12
+Sam Samuels,10,235,73,Lebron,3/11/1999,Center,21,17,17,9,4,2,35,53,23,12
+Phil Phillips,10,235,73,Durant,4/11/1876,PointGuard,16,7,23,20,14,7,35,53,23,12
+Damien Lillard,10,235,73,Lebron,5/11/1984,SHOOTINGGUARD,34,26,26,7,11,10,35,53,23,12
+Lebron James,7,180,81,Lebron,6/11/1988,PowerForward,10,9,8,7,10,9,8,7,10,9
+Anthony Davis,10,235,73,Durant,7/11/2011,SmallForward,21,17,14,10,8,5,35,53,23,12
+Stephen Curry,10,235,73,Lebron,8/11/1999,Center,21,17,17,9,4,2,35,53,23,12
+Marcus Smart,10,235,73,Durant,9/11/1876,PointGuard,16,7,23,20,14,7,35,53,23,12
+Kyle Lowry,10,235,73,Lebron,10/11/1984,SHOOTINGGUARD,34,26,26,7,11,10,35,53,23,12
