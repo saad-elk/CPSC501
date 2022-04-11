@@ -120,6 +120,9 @@ public class MainController {
             fileChooser.setInitialDirectory(new File("."));
             File basketballFile = fileChooser.showOpenDialog(new Stage());
             fileReader(basketballFile);
+            loadPlayers();
+            loadUniquePlayers();
+            loadTeamMembers();
             statusBar.setTextFill(Color.GREEN);
             statusBar.setText("File successfully loaded!");
         } catch (Exception e){
@@ -403,17 +406,20 @@ public class MainController {
             displayID.getChildren().remove(4);
             displayID.getChildren().remove(4);
         }
-        if (optionSelected == null){
+        if (playersArray.size() <= 3){
+            statusBar.setTextFill(Color.RED);
+            statusBar.setText("You need at least 3 players in the current roster to display stats!");
+        } else if (optionSelected == null){
             statusBar.setTextFill(Color.RED);
             statusBar.setText("Please select a display option to output!");
         } else if (optionSelected.equals("All players' information")) {
-            displayTextArea.setText(String.format("%-10s %-15s %-15s %-10s %-12s %-12s %-10s %-15s %-15s\n", "PLAYER NO", "FIRST NAME", "LAST NAME", "JERSEY NO", "HEIGHT (cm)", "WEIGHT (kg)", "TEAM NAME", "DATE OF BIRTH", "POSITION"));
+            displayTextArea.setText(String.format("%-15s %-15s %-10s %-12s %-12s %-10s %-15s %-15s\n", "FIRST NAME", "LAST NAME", "JERSEY NO", "HEIGHT (cm)", "WEIGHT (kg)", "TEAM NAME", "DATE OF BIRTH", "POSITION"));
 
             //For loop to obtain and print all players' information and assign a player number based off position in array list.
             for(int playerInfo = 0; playerInfo < playersArray.size(); playerInfo++) {
                 PlayerInformation currentPlayerInfo = playersArray.get(playerInfo).getPlayerInformation();
 
-                displayTextArea.appendText(String.format("%-10d %-15s %-15s %-10d %-12d %-12d %-10s %-15s %-15s\n", playerInfo + 1, currentPlayerInfo.getPlayerName().split(" ")[0], currentPlayerInfo.getPlayerName().split(" ")[1],
+                displayTextArea.appendText(String.format("%-15s %-15s %-10d %-12d %-12d %-10s %-15s %-15s\n", currentPlayerInfo.getPlayerName().split(" ")[0], currentPlayerInfo.getPlayerName().split(" ")[1],
                         currentPlayerInfo.getJerseyNo(), currentPlayerInfo.getHeight(), currentPlayerInfo.getWeight(), currentPlayerInfo.getTeam(), currentPlayerInfo.getDateOfBirth().getDate() + "/" + (currentPlayerInfo.getDateOfBirth().getMonth()+1) + "/" + (currentPlayerInfo.getDateOfBirth().getYear()+1900), currentPlayerInfo.getPosition()));
             }
         } else if (optionSelected.equals("All players' stats")){
