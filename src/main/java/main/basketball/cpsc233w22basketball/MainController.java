@@ -128,7 +128,22 @@ public class MainController {
         }
     }
 
-
+    @FXML
+    void savePlayers(ActionEvent event) {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File("."));
+            fileChooser.setInitialFileName("basketballFile");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text", ".txt"));
+            File basketballFile = fileChooser.showSaveDialog(new Stage());
+            fileWriter(playersArray, basketballFile);
+            statusBar.setTextFill(Color.GREEN);
+            statusBar.setText("File successfully saved!");
+        } catch (Exception e){
+            statusBar.setTextFill(Color.RED);
+            statusBar.setText("Error saving file!");
+        }
+    }
 
 
     private ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
