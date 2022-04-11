@@ -128,11 +128,11 @@
             </Tab>
         </tabs>
     </TabPane>
-    <Pane prefHeight="83.0" prefWidth="700.0" style="-fx-background-color: #9f9f9f;">
+    <Pane prefHeight="83.0" prefWidth="700.0" style="-fx-background-color: #D3D3D3;">
         <children>
-            <Label fx:id="statusBar" layoutX="100.0" layoutY="3.0" prefHeight="19.0" prefWidth="500.0" text="Welcome to our All-Star Basketball Stat Tracker!" textAlignment="CENTER">
+            <Label fx:id="statusBar" layoutX="177.0" layoutY="2.0" prefHeight="21.0" prefWidth="398.0" text="Welcome to our All-Star Basketball Stat Tracker!" textAlignment="CENTER">
                 <font>
-                    <Font size="15.0" />
+                    <Font size="13.0" />
                 </font>
             </Label>
         </children>

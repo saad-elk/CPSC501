@@ -66,7 +66,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                main.basketball.cpsc233w22basketball/main.basketball.cpsc233w22basketball.HelloApplication
+                                main.basketball.cpsc233w22basketball/main.basketball.cpsc233w22basketball.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

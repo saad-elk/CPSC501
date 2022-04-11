@@ -145,8 +145,7 @@ public class MainController {
         }
     }
 
-
-    private ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
+    private static ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
 
     //Store stat options
     private ObservableList<String> statOptions = FXCollections.observableArrayList();
@@ -589,7 +588,7 @@ public class MainController {
         validData = validateName(firstName);
         if(!validData) {
             statusBar.setTextFill(Color.RED);
-            statusBar.setText("The new player's first name must only include alphabetical characters, please try again!\n");
+            statusBar.setText("The new player's first name must only include alphabetical characters!\n");
             return;
         }
         firstName = firstName.toUpperCase();
@@ -597,7 +596,7 @@ public class MainController {
         validData = validateName(lastName);
         if(!validData) {
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's last name must only include alphabetical characters, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's last name must only include alphabetical characters!\n", firstName));
             return;
         }
         lastName = lastName.toUpperCase();
@@ -606,7 +605,7 @@ public class MainController {
             jerseyNumber = Integer.parseInt(newPlayerJeresyNo.getText().strip());
         } catch (NumberFormatException e){
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's jersey number must only include integer values, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's jersey number must only include integer values!\n", firstName));
             return;
         }
 
@@ -614,7 +613,7 @@ public class MainController {
             height = Integer.parseInt(newPlayerHeight.getText().strip());
         } catch (NumberFormatException e){
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's height must only include integer values, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's height must only include integer values!\n", firstName));
             return;
         }
 
@@ -623,13 +622,13 @@ public class MainController {
             weight = Integer.parseInt(newPlayerWeight.getText().strip());
         } catch (NumberFormatException e){
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's weight must only include integer values, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's weight must only include integer values!\n", firstName));
             return;
         }
 
         if(!teamName.equalsIgnoreCase("LEBRON") && !teamName.equalsIgnoreCase("DURANT")) {
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's team name is incorrect, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's team name is incorrect!\n", firstName));
             return;
         }
 
@@ -637,13 +636,13 @@ public class MainController {
             dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(newPlayerDateOfBirth.getText().strip());
         } catch (ParseException e) {
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's date of birth must match the format DD/MM/YYYY, please try again!\n", firstName));
+            statusBar.setText(String.format("%s's date of birth must match the format DD/MM/YYYY!\n", firstName));
             return;
         }
 
         if(!position.equalsIgnoreCase("POINTGUARD") && !position.equalsIgnoreCase("SHOOTINGGUARD") && !position.equalsIgnoreCase("SMALLFORWARD") && !position.equalsIgnoreCase("POWERFORWARD") && !position.equalsIgnoreCase("CENTER")) {
             statusBar.setTextFill(Color.RED);
-            statusBar.setText(String.format("%s's position must be one of: pointguard, shootingguard, smallforward, powerforward or center, please try again!\n", firstName));
+            statusBar.setText("Position is: pointguard, shootingguard, smallforward, powerforward or center!\n");
             return;
         }
 
@@ -653,7 +652,7 @@ public class MainController {
         for (BasketballPlayer basketballPlayer : playersArray) {
             if (basketballPlayer.getPlayerInformation().compareTo(newPlayer.getPlayerInformation()) == 0) {
                 statusBar.setTextFill(Color.RED);
-                statusBar.setText(String.format("%s %s already exists in the player list and could not be added as a new All-Star Basketball Player!\n", firstName, lastName));
+                statusBar.setText(String.format("%s %s already exists in the player list and could not be added!\n", firstName, lastName));
                 playerFound = true;
             }
         }
@@ -673,9 +672,8 @@ public class MainController {
             newPlayerDateOfBirth.clear();
             newPlayerTeamName.clear();
             newPlayerPosition.clear();
-            //loadUniquePlayers();
             loadPlayers();
-            statusBar.setText(String.format("%s %s has been successfully added as a new All-Star Basketball Player!\n", firstName, lastName));
+            statusBar.setText(String.format("%s %s has been added as a new All-Star Player!\n", firstName, lastName));
         }
     }
 
@@ -723,16 +721,15 @@ public class MainController {
     /**
      * FileReader reads in all Basketball Players from the file specified by the user
      * @param basketballFile File for data be read from
-     * @return ArrayList of all the Basketball Players read from the file
      * @throws ParseException Whenever the player's date of birth cannot be parsed.
      */
-    public static ArrayList<BasketballPlayer> fileReader(File basketballFile) throws ParseException {
-        Scanner worldReader = null;
-        ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
+    public static void fileReader(File basketballFile) throws ParseException {
+        Scanner playerReader = null;
+        //ArrayList<BasketballPlayer> playersArray = new ArrayList<>();
         try {
-            worldReader = new Scanner(basketballFile);
-            while (worldReader.hasNextLine()) {
-                String line = worldReader.nextLine();
+            playerReader = new Scanner(basketballFile);
+            while (playerReader.hasNextLine()) {
+                String line = playerReader.nextLine();
                 String[] lineInfo = line.split(",");
                 String playerName = String.valueOf(lineInfo[0]);
                 int jerseyNo = Integer.parseInt(lineInfo[1]);
@@ -761,7 +758,6 @@ public class MainController {
         } catch (FileNotFoundException e) {
             System.err.println("Could not find file: " + basketballFile.getAbsolutePath());
         }
-        return playersArray;
     }
 
     /**
