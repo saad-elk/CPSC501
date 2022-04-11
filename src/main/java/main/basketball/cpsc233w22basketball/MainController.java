@@ -273,6 +273,7 @@ public class MainController {
         loadPlayers();
         loadTeamMembers();
         loadTextPrompts();
+        displayTextArea.setStyle("-fx-font-family: 'monospaced';");
     }
 
     /**
