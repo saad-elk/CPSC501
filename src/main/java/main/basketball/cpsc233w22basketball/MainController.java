@@ -274,6 +274,9 @@ public class MainController {
         loadTeamMembers();
         loadTextPrompts();
         displayTextArea.setStyle("-fx-font-family: 'monospaced';");
+        editPlayerTextArea.setStyle("-fx-font-family: 'monospaced';");
+        teamDurantTextArea.setStyle("-fx-font-family: 'monospaced';");
+        teamLebronTextArea.setStyle("-fx-font-family: 'monospaced';");
     }
 
     /**
@@ -441,7 +444,7 @@ public class MainController {
         } else if (optionSelected.equals("Top 10 scorers")){
             ArrayList<BasketballPlayer> allPlayersStats = new ArrayList<>(playersArray);
 
-            displayTextArea.setText(String.format("TOP SCORERS:\n %-20s %-15s %-15s %-23s %-22s %-23s %-22s %-14s %-14s %-14s %-14s\n", "PLAYER NAME", "SHOT ATTEMPTS", "SHOT MAKES", "3-POINT SHOT ATTEMPTS", "3-POINT SHOT MAKES",
+            displayTextArea.setText(String.format("TOP SCORERS:\n%-21s %-15s %-15s %-23s %-22s %-23s %-22s %-14s %-14s %-14s %-14s\n", "PLAYER NAME", "SHOT ATTEMPTS", "SHOT MAKES", "3-POINT SHOT ATTEMPTS", "3-POINT SHOT MAKES",
                     "FREE THROW ATTEMPTS", "FREE THROW MAKES", "ASSISTS", "REBOUNDS", "BLOCKS", "STEALS"));
             //Loops through newly created ArrayList 10 times and finds the highest scoring player after every iteration, and sets the
             //player's stats to 0 to ensure they aren't added multiple times to the top 10 scorers list.
@@ -464,7 +467,7 @@ public class MainController {
         } else if (optionSelected.equals("Top 10 most efficient players")){
             ArrayList<BasketballPlayer> allPlayersShootingPercentage = new ArrayList<>(playersArray);
 
-            displayTextArea.setText(String.format("TOP SHOOTING PERCENTAGES:\n %-20s %-25s %-30s %-30s %-30s\n", "PLAYER NAME", "SHOT PERCENTAGE (%)", "3-POINT SHOT PERCENTAGE (%)", "FREE THROW PERCENTAGE (%)", "OVERALL SHOOTING PERCENTAGE (%)"));
+            displayTextArea.setText(String.format("TOP SHOOTING PERCENTAGES:\n%-21s %-25s %-30s %-30s %-30s\n", "PLAYER NAME", "SHOT PERCENTAGE (%)", "3-POINT SHOT PERCENTAGE (%)", "FREE THROW PERCENTAGE (%)", "OVERALL SHOOTING PERCENTAGE (%)"));
 
             //Iterates 10 times to find the top 10 most efficient players in the allPlayersShootingPercentage ArrayList based off shooting percentage for every player and adds
             //them to topTenShootingPercentage ArrayList, and sets the player's stats to 0 to ensure they aren't added multiple times to the top 10 shooting percentage list.
@@ -495,7 +498,7 @@ public class MainController {
                 }
             }
 
-            displayTextArea.setText(String.format("Best 3pt shooters (Top 3 from SGs, PGs and SFs)\n %-20s %-25s %-25s \n", "PLAYER NAME", "3PT SHOOTING PERCENTAGE", "PLAYING POSITION"));
+            displayTextArea.setText(String.format("Best 3pt shooters (Top 3 from SGs, PGs and SFs)\n%-21s %-25s %-25s\n", "PLAYER NAME", "3PT SHOOTING PERCENTAGE", "PLAYING POSITION"));
             for (int iteration = 0; iteration < 5  && iteration < allThreePointShooters.size(); iteration++) {
                 BasketballPlayer bestShooter = findBestPlayer(allThreePointShooters);
                 displayTextArea.appendText(String.format("%-21s %-25.2f %-25s \n", bestShooter.getPlayerInformation().getPlayerName(), (bestShooter.getPlayerStats().getThreePointShotMakes()/(double)bestShooter.getPlayerStats().getThreePointShotAttempts()) * TO_PERCENTAGE, bestShooter.getPlayerInformation().getPosition()));
@@ -571,7 +574,7 @@ public class MainController {
             }
             bestTeamLineup.add(bestPlayer);
 
-            displayTextArea.setText(String.format("BEST RECOMMENDED OVERALL LINEUP ACROSS BOTH TEAMS:\n %-20s %-20s \n", "PLAYER NAME", "PLAYING POSITION"));
+            displayTextArea.setText(String.format("BEST RECOMMENDED OVERALL LINEUP ACROSS BOTH TEAMS:\n%-21s %-20s\n", "PLAYER NAME", "PLAYING POSITION"));
             for (int playerInfo = 0; playerInfo < bestTeamLineup.size(); playerInfo++) {
                 displayTextArea.appendText(String.format("%-21s %-20s \n", bestTeamLineup.get(playerInfo).getPlayerInformation().getPlayerName(), bestTeamLineup.get(playerInfo).getPlayerInformation().getPosition()));
             }
