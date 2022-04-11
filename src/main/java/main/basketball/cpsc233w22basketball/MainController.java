@@ -453,7 +453,7 @@ public class MainController {
                     }
                 }
                 for(int player = 0; player < allPlayersStats.size(); player++) {
-                    if(allPlayersStats.get(player).getPlayerInformation().compareTo(highestScorer.getPlayerInformation()) > 0) {
+                    if(allPlayersStats.get(player).getPlayerInformation().compareTo(highestScorer.getPlayerInformation()) == 0) {
                         allPlayersStats.remove(player);
                     }
                 }
@@ -477,7 +477,7 @@ public class MainController {
                 }
 
                 for(int playerToReset = 0; playerToReset < allPlayersShootingPercentage.size(); playerToReset++) {
-                    if(allPlayersShootingPercentage.get(playerToReset).getPlayerInformation().getPlayerName().equalsIgnoreCase(bestShooter.getPlayerInformation().getPlayerName())) {
+                    if(allPlayersShootingPercentage.get(playerToReset).getPlayerInformation().compareTo(bestShooter.getPlayerInformation()) == 0) {
                         allPlayersShootingPercentage.remove(playerToReset);
                     }
                 }
