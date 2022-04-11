@@ -181,12 +181,6 @@ public class MainController {
      * Loads all players when the GUI is initialized.
      */
     private void loadPlayers() {
-//        BasketballPlayer b = new BasketballPlayer(new PlayerInformation("saad elkadri", 2, 2, 2, "Lebron", new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1990"), "Center"), new PlayerStats(2,2,2,2,2,2,2,2,2,2));
-//        playersArray.add(b);
-//
-//        BasketballPlayer l = new BasketballPlayer(new PlayerInformation("Mark Mattews", 2, 2, 2, "Lebron", new SimpleDateFormat("dd/MM/yyyy").parse("11/11/1990"), "Center"), new PlayerStats(2,2,2,2,2,2,2,2,2,2));
-//        playersArray.add(l);
-        //allPlayers.getItems().clear();
         players.clear();
         for(BasketballPlayer player : playersArray){
             players.add(player.getPlayerInformation().getPlayerName().toUpperCase());
@@ -278,6 +272,10 @@ public class MainController {
         loadTextPrompts();
     }
 
+    /**
+     * Displays player's stats based on the user's selection
+     * @param actionEvent on choicebox selection click
+     */
     public void displayStats(ActionEvent actionEvent) {
         String playerToEdit = allPlayers.getValue();
 
@@ -305,6 +303,10 @@ public class MainController {
                 playerStats.getThreePointShotMakes(), playerStats.getFreeThrowAttempts(), playerStats.getFreeThrowMakes(), playerStats.getAssists(), playerStats.getRebounds(), playerStats.getBlocks(), playerStats.getSteals()));
     }
 
+    /**
+     * Changes selected player's stats to user entered value
+     * @param event on mouse click
+     */
     @FXML
     void confirmStatChange(MouseEvent event) {
         String playerToEdit = allPlayers.getValue();
@@ -390,6 +392,10 @@ public class MainController {
                 playerStats.getThreePointShotMakes(), playerStats.getFreeThrowAttempts(), playerStats.getFreeThrowMakes(), playerStats.getAssists(), playerStats.getRebounds(), playerStats.getBlocks(), playerStats.getSteals()));
     }
 
+    /**
+     * Displays player information based on user selected option
+     * @param event on choice box selection
+     */
     @FXML
     void displayInfo(ActionEvent event) {
         String optionSelected = allDisplayOptions.getValue();
@@ -424,14 +430,6 @@ public class MainController {
                         currentPlayerStats.getBlocks(), currentPlayerStats.getSteals()));
             }
         } else if (optionSelected.equals("Unique player stats")){
-          /**  for(BasketballPlayer player : playersArray){
-                uniquePlayers.add(player.getPlayerInformation().getPlayerName().toUpperCase());
-            }
-            ChoiceBox<String> playersToView = new ChoiceBox<>(FXCollections.observableArrayList(uniquePlayers));
-            playersToView.setLayoutX(106);
-            playersToView.setLayoutY(120);
-            playersToView.prefWidth(150);
-            displayID.getChildren().add(playersToView);*/
           loadUniquePlayers();
         } else if (optionSelected.equals("Top 10 scorers")){
             ArrayList<BasketballPlayer> allPlayersStats = new ArrayList<>(playersArray);
@@ -573,6 +571,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Adds a new player based on user provided information
+     * @param event on mouse click
+     */
     @FXML
     void addPlayer(MouseEvent event) {
         String firstName = newPlayerFirstName.getText().strip();
